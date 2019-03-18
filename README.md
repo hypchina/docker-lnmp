@@ -5,3 +5,7 @@ lnmp-config里面是配置文件(mysql除外，mysql的配置文件在mysql57里
 app为php代码目录
 data/storage为redis的数据持久化目录，mysql在使用boot2docker的时候不能把持久化目录指定到win7的分享目录里面 要不mysql各种问题
 data/logs 日志目录
+
+clone 代码到本地，把docker-lnmp 目录 更改为dockershare,然后 
+docker-compose up -d
+docker-compose -f mysql-compose up -d
