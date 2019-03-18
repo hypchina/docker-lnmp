@@ -3,6 +3,7 @@ version: '3'
 services:
   mysql_57:
     build: "./mysql57"
+    #image: mysql:5.7
     container_name: "my-mysql"
     networks:
       - lnmp
@@ -14,6 +15,9 @@ services:
       #以下代码在win7中会被mysql忽略配置
       #- /dockershare/lnmp-config/mysql/my.cnf:/etc/mysql/my.cnf
       #- /dockershare/data/storage/mysql57:/var/lib/mysql
+      #挂载到VM中 但是重启机器会消失，所以最好手动备份数据 到 /dockershare/data/storage/mysql57
+      #备份 sudo cp -Rp /data/storage/mysql57/* /dockershare/data/storage/mysql57
+      #还原 sudo mkdir -p /data/storage/mysql57 && sudo cp -Rp /data/storage/mysql57/* /dockershare/data/storage/mysql57
       - /data/storage/mysql57:/var/lib/mysql
       - /dockershare/data/logs/mysql57:/var/log/mysql
 networks:

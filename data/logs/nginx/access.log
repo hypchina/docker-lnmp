@@ -352,3 +352,6 @@
 192.168.99.1 - - [17/Mar/2019:16:01:55 +0000] "GET /index.php HTTP/1.1" 200 89824 "-" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36"
 192.168.99.1 - - [17/Mar/2019:16:02:12 +0000] "GET /index.php HTTP/1.1" 200 13 "-" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36"
 192.168.99.1 - - [17/Mar/2019:16:02:19 +0000] "GET /index.php HTTP/1.1" 200 89891 "-" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36"
+192.168.99.1 - - [18/Mar/2019:02:36:04 +0000] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36"
+192.168.99.1 - - [18/Mar/2019:02:36:04 +0000] "GET /favicon.ico HTTP/1.1" 404 571 "http://192.168.99.100/" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36"
+192.168.99.1 - - [18/Mar/2019:02:36:10 +0000] "GET /index.php HTTP/1.1" 200 89824 "-" "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36"

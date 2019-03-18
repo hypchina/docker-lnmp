@@ -95,3 +95,35 @@
 1:M 17 Mar 2019 16:03:11.569 * DB saved on disk
 1:M 17 Mar 2019 16:03:11.569 * Removing the pid file.
 1:M 17 Mar 2019 16:03:11.570 # Redis is now ready to exit, bye bye...
+1:C 18 Mar 2019 02:25:22.428 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+1:C 18 Mar 2019 02:25:22.430 # Redis version=5.0.3, bits=64, commit=00000000, modified=0, pid=1, just started
+1:C 18 Mar 2019 02:25:22.433 # Configuration loaded
+                _._                                                  
+           _.-``__ ''-._                                             
+      _.-``    `.  `_.  ''-._           Redis 5.0.3 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._                                   
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 1
+  `-._    `-._  `-./  _.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |           http://redis.io        
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+ |`-._`-._    `-.__.-'    _.-'_.-'|                                  
+ |    `-._`-._        _.-'_.-'    |                                  
+  `-._    `-._`-.__.-'_.-'    _.-'                                   
+      `-._    `-.__.-'    _.-'                                       
+          `-._        _.-'                                           
+              `-.__.-'                                               
+
+1:M 18 Mar 2019 02:25:22.446 # WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.
+1:M 18 Mar 2019 02:25:22.450 # Server initialized
+1:M 18 Mar 2019 02:25:22.452 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+1:M 18 Mar 2019 02:25:22.454 * DB loaded from disk: 0.001 seconds
+1:M 18 Mar 2019 02:25:22.456 * Ready to accept connections
+1:signal-handler (1552877364) Received SIGTERM scheduling shutdown...
+1:M 18 Mar 2019 02:49:24.893 # User requested shutdown...
+1:M 18 Mar 2019 02:49:24.896 * Saving the final RDB snapshot before exiting.
+1:M 18 Mar 2019 02:49:24.906 * DB saved on disk
+1:M 18 Mar 2019 02:49:24.909 * Removing the pid file.
+1:M 18 Mar 2019 02:49:24.911 # Redis is now ready to exit, bye bye...
