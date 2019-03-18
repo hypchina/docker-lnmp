@@ -8,4 +8,4 @@ data/logs 日志目录
 
 clone 代码到本地，把docker-lnmp 目录 更改为dockershare,然后 
 docker-compose up -d
-docker-compose -f mysql-compose up -d
+docker-compose -f mysql-compose.yml up -d
