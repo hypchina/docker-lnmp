@@ -1,0 +1,11 @@
+{
+  "name": "docker-node",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Node.js with docker",
+  "author": "673663794qq",
+  "dependencies": {
+    "apidoc": "^0.17.7",
+    "express": "3.2.4"
+  }
+}

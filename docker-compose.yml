@@ -1,0 +1,54 @@
+version: '3'
+#COMPOSE_CONVERT_WINDOWS_PATHS
+services:
+  nginx:
+    image: nginx:1.14.2
+    container_name: "my-nginx"
+    depends_on:
+      - php
+    volumes:
+      - /dockershare/data/logs/nginx:/var/log/nginx
+      - /dockershare/lnmp-config/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - /dockershare/lnmp-config/nginx/sites:/etc/nginx/conf.d
+      - /dockershare/app:/data/app
+    ports:
+      - 80:80
+    #user: nginx 
+    #privileged: true
+    networks:
+      - lnmp
+  php:
+    #image: cat2xyj/mini_php
+    build: ./miniphp
+    container_name: "my-php"
+    volumes:
+      - /dockershare/lnmp-config/php/php-fpm.conf:/usr/local/etc/php-fpm.conf
+      - /dockershare/lnmp-config/php/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - /dockershare/lnmp-config/php/php.ini:/usr/local/etc/php/php.ini
+      - /dockershare/app:/data/app
+    ports:
+      - 9000:9000
+    networks:
+      - lnmp
+  redis:
+    build: ./redis
+    container_name: "my-redis"
+    networks:
+      - lnmp
+    volumes:
+      - /dockershare/data/storage/redis:/data/storage/redis
+      - /dockershare/data/logs/redis:/var/log
+      - /dockershare/lnmp-config/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    ports:
+       - "6379:6379"
+  node:
+    build: ./nodejs
+    container_name: "my-node"
+    networks:
+      - lnmp
+    volumes:
+      - /dockershare/app:/data/app
+    ports:
+       - "3001:3001"
+networks:
+  lnmp:

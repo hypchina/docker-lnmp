@@ -1,0 +1,105 @@
+#- /e/lnmp-test/data/sh/mysql57:docker-entrypoint-initdb.d
+#docker container rm $(docker container ls -a -q)
+#docker container stop $(docker container ps -a -q)
+#docker-machine restart
+#docker image rm
+#通过dockerfile构建镜像
+docker build -t 镜像名 上下文路径
+docker run -d --rm --name 容器名 镜像
+
+#---------------测试php-fpm------------------
+#docker run --name testphp -d -v /e/lnmp-test/data/storage:/data/storage -v /e/lnmp-test/data/app:/var/www/html -v /e/lnmp-test/data/logs:/data/logs -v /e/lnmp-config/php/www.conf:/usr/local/etc/php-fpm.d/www.conf cat2xyj/mini_php
+#docker run --name testphp -d --rm -v /e/lnmp-config/php/www.conf:/usr/local/etc/php-fpm.d/ cat2xyj/mini_php
+#docker run --name testphp -d --rm -v E:\lnmp-config\php\www.conf:/usr/local/etc/php-fpm.d/www.conf cat2xyj/mini_php
+#docker run --name testphp -it --rm cat2xyj/mini_php
+#docker run --name testphp -d --rm cat2xyj/mini_php
+
+docker exec -it testphp sh
+php-fpm -t 测试php-fpm
+php --ini 查看php加载的(php.ini)配置信息
+
+docker run --name testphp -d --rm -p 9000:9000 \
+-v /dockershare/lnmp-config/php/www.conf:/usr/local/etc/php-fpm.d/www.conf \
+-v /dockershare/lnmp-config/php/php.ini:/usr/local/etc/php/php.ini \
+cat2xyj/mini_php
+
+
+
+
+#--------测试mysql5.7的容器构建问题--------
+#docker run --name testmysql -d --rm -e MYSQL_ROOT_PASSWORD=123456 mysql:5.7
+#docker exec -it testmysql sh vim
+#docker run --name testmysql -d --rm -e MYSQL_ROOT_PASSWORD=123456 -v /e/lnmp-config/mysql/my.cnf:/etc/mysql/my.cnf mysql:5.7
+#docker run --name testmysql -d --rm -e MYSQL_ROOT_PASSWORD=123456 -v /e/lnmp-config/mysql:/etc/mysql mysql:5.7
+#docker run --name testmysql -d --rm -e MYSQL_ROOT_PASSWORD=123456 mysql:5.7
+#docker exec -it testmysql bash
+
+#一下挂载文件 在win7下会 忽略my.cnf配置文件
+#解决方法  https://stackoverflow.com/questions/37001272/fixing-world-writable-mysql-error-in-docker
+
+docker run --name testmysql -d --rm -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 \
+-v /dockershare/lnmp-config/mysql/my.cnf:/etc/mysql/my.cnf \
+mysql:5.7
+
+
+
+docker run --name testmysql -d -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 \
+-v /dockershare/lnmp-config/mysql/my.cnf:/etc/mysql/conf.d/config-file.cnf \
+-v /dockershare/data/storage/mysql57:/var/lib/mysql \
+-v /dockershare/data/logs/mysql57:/var/log/mysql \
+mysql:5.7 chmod 644 /etc/mysql/conf.d/config-file.cnf && mysql:5.7:/entrypoint.sh mysqld
+
+
+docker run --name testmysql -d --rm -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 testmysql-image
+
+docker run --name testmysql -d -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 \
+-v /storage/mysql57:/var/lib/mysql \
+-v /dockershare/data/logs/mysql57:/var/log/mysql \
+testmysql-image
+docker logs testmysql
+
+docker run --name testmysql -d --rm -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 mysql:5.7
+
+
+#------------------测试nginx--------------------
+#docker run --name testnginx -d --rm -u root -v /e/lnmp-test/data/app:/var/www/html nginx
+#docker run --name testnginx -d --rm -u root -v //e/lnmp-test/data/app:/var/www/html nginx
+#docker run --name testnginx -d --rm -p 80:80 -v //e/lnmp-test/data/app:/usr/share/nginx/html nginx
+#docker run --name testnginx -d --rm -p 80:80 -v /dockershare/temp/nginx/:/etc/nginx/conf.d nginx:1.14.2
+#docker run --name testnginx -d --rm -p 80:80 -v /dockershare/lnmp-config/nginx/nginx.conf:/etc/nginx/nginx.conf nginx:1.14.2
+#docker exec -it testnginx sh
+
+docker run --name testnginx -d --rm -p 80:80 \
+-v /dockershare/data/logs/nginx:/var/log/nginx \
+-v /dockershare/lnmp-config/nginx/nginx.conf:/etc/nginx/nginx.conf \
+-v /dockershare/lnmp-config/nginx/sites:/etc/nginx/conf.d \
+-v /dockershare/app:/data/app \
+nginx:1.14.2
+
+
+#测试php-fpm
+docker run --name testphp -d --rm -p 80:80 -v /dockershare/lnmp-config/php/www.conf:/usr/local/etc/php-fpm.d/www.conf -v /dockershare/lnmp-config/php/php.ini:/usr/local/etc/php/php.ini cat2xyj/mini_php
+
+#安装 docke-compose
+sudo curl -L https://github.com/docker/compose/releases/download/1.17.1/docker-compose-`uname -s`-`uname -m` > /dockershare/soft/docker-compose
+
+#查看容器IP
+docker inspect -f "{{.NetworkSettings.Networks.容器网络名称}}"
+
+docker inspect -f "{{.NetworkSettings.Networks.dockershare_lnmp}}" $(docker container ps -a -q)
+
+#------------------测试redis--------------------
+docker container stop testredis
+
+docker run --name testredis -d --rm -p 6379:6379 \
+-v /dockershare/data/storage/redis:/data/storage/redis \
+-v /dockershare/lnmp-config/redis/redis.conf:/usr/local/etc/redis/redis.conf \
+redis:5.0.3 \
+redis-server /data/config/redis.conf  --appendonly no
+
+docker run --name testredis -d --rm -p 6379:6379 \
+-v /dockershare/data/logs/redis:/var/log \
+-v /dockershare/data/storage/redis:/data/storage/redis \
+-v /dockershare/lnmp-config/redis/redis.conf:/usr/local/etc/redis/redis.conf \
+redis:5.0.3 \
+redis-server /usr/local/etc/redis/redis.conf --appendonly yes
