@@ -1,0 +1,21 @@
+# 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释
+deb [trusted=yes] http://mirrors.tuna.tsinghua.edu.cn/debian/ buster main contrib non-free
+deb [trusted=yes] http://mirrors.tuna.tsinghua.edu.cn/debian/ buster-updates main contrib non-free
+deb [trusted=yes] http://mirrors.tuna.tsinghua.edu.cn/debian/ buster-backports main contrib non-free
+deb [trusted=yes] http://mirrors.tuna.tsinghua.edu.cn/debian-security buster/updates main contrib non-free
+
+# 容器自带的source.list
+# deb http://snapshot.debian.org/archive/debian/20200327T000000Z buster main
+# deb http://deb.debian.org/debian buster main
+# deb http://snapshot.debian.org/archive/debian-security/20200327T000000Z buster/updates main
+# deb http://security.debian.org/debian-security buster/updates main
+# deb http://snapshot.debian.org/archive/debian/20200327T000000Z buster-updates main
+# deb http://deb.debian.org/debian buster-updates main
+
+
+#deb [trusted=yes] http://mirrors.aliyun.com/debian wheezy main contrib non-free
+#deb-src [trusted=yes] http://mirrors.aliyun.com/debian wheezy main contrib non-free
+#deb [trusted=yes] http://mirrors.aliyun.com/debian wheezy-updates main contrib non-free
+#deb-src [trusted=yes] http://mirrors.aliyun.com/debian wheezy-updates main contrib non-free
+#deb [trusted=yes] http://mirrors.aliyun.com/debian-security wheezy/updates main contrib non-free
+#deb-src [trusted=yes] http://mirrors.aliyun.com/debian-security wheezy/updates main contrib non-free

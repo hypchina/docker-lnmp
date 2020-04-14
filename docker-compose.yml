@@ -5,7 +5,7 @@ services:
     image: nginx:1.14.2
     container_name: "my-nginx"
     depends_on:
-      - php
+      - laravel
     volumes:
       - /dockershare/data/logs/nginx:/var/log/nginx
       - /dockershare/lnmp-config/nginx/nginx.conf:/etc/nginx/nginx.conf
@@ -15,10 +15,22 @@ services:
       - 80:80
     networks:
       - lnmp
-  php:
-    #image: cat2xyj/mini_php
-    build: ./miniphp
-    container_name: "my-php"
+#  php:
+#    #image: cat2xyj/mini_php
+#    build: ./miniphp
+#    container_name: "my-php"
+#    volumes:
+#      - /dockershare/lnmp-config/php/php-fpm.conf:/usr/local/etc/php-fpm.conf
+#      - /dockershare/lnmp-config/php/www.conf:/usr/local/etc/php-fpm.d/www.conf
+#      - /dockershare/lnmp-config/php/php.ini:/usr/local/etc/php/php.ini
+#      - /dockershare/app:/data/app
+#    ports:
+#      - 9000:9000
+#    networks:
+#      - lnmp
+  laravel:
+    build: ./laravel
+    container_name: "my-laravel"
     volumes:
       - /dockershare/lnmp-config/php/php-fpm.conf:/usr/local/etc/php-fpm.conf
       - /dockershare/lnmp-config/php/www.conf:/usr/local/etc/php-fpm.d/www.conf
@@ -28,6 +40,16 @@ services:
       - 9000:9000
     networks:
       - lnmp
+  node:
+    build: ./node
+#    image: node:latest
+    container_name: "my-node"
+    networks:
+      - lnmp
+    volumes:
+      - /dockershare/app/node:/data/app/node
+    ports:
+       - "3000:3000"
   redis:
     build: ./redis
     container_name: "my-redis"
@@ -39,5 +61,40 @@ services:
       - /dockershare/lnmp-config/redis/redis.conf:/usr/local/etc/redis/redis.conf
     ports:
        - "6379:6379"
+#  tomcate:
+#    image: "tomcate:latest"
+#    container_name: "my-tomcat"
+#    networks:
+#      - lnmp
+#    ports:
+#      - 8080
+#  splash:
+#    image: "scrapinghub/splash"
+#    container_name: "my-splash"
+#    networks:
+#      - lnmp
+#    ports:
+#      - 8050:8050
+  mysql_57:
+    #build: "./mysql57"
+    image: mysql:5.7
+    container_name: "my-mysql"
+    networks:
+      - lnmp
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: "123456"
+      MYSQL_USER: "docker"
+      MYSQL_PASSWORD: "123456"
+    volumes:
+      #以下代码在win7中会被mysql忽略配置
+      #- /dockershare/lnmp-config/mysql/my.cnf:/etc/mysql/my.cnf
+      #- /dockershare/data/storage/mysql57:/var/lib/mysql
+      #挂载到VM中 但是重启机器会消失，所以最好手动备份数据 到 /dockershare/data/storage/mysql57
+      #备份 sudo cp -Rp /data/storage/mysql57/* /dockershare/data/storage/mysql57
+      #还原 sudo mkdir -p /data/storage/mysql57 && sudo cp -Rp /data/storage/mysql57/* /dockershare/data/storage/mysql57
+      - /mysql/data:/var/lib/mysql
+      - /dockershare/data/logs/mysql57:/var/log/mysql
 networks:
   lnmp:
