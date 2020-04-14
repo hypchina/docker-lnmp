@@ -9,3 +9,9 @@ data/logs 日志目录
 clone 代码到本地，把docker-lnmp 目录 更改为dockershare,然后 
 docker-compose up -d
 docker-compose -f mysql-compose.yml up -d
+
+
+# 停止容器，删除容器 删除镜像
+docker ps -a | grep "Exited" | awk '{print $1 }'|xargs docker stop
+docker ps -a | grep "Exited" | awk '{print $1 }'|xargs docker rm
+docker images|grep none|awk '{print $3 }'|xargs docker rmi
