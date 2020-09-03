@@ -61,6 +61,20 @@ services:
       - /dockershare/lnmp-config/redis/redis.conf:/usr/local/etc/redis/redis.conf
     ports:
        - "6379:6379"
+  es:
+    image: elasticsearch:7.9.0
+    container_name: "my-es"
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - /dockershare/lnmp-config/es/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - /dockershare/data/storage/es:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - lnmp
 #  tomcate:
 #    image: "tomcate:latest"
 #    container_name: "my-tomcat"
