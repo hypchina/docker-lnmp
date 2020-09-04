@@ -107,3 +107,7 @@ redis-server /usr/local/etc/redis/redis.conf --appendonly yes
 
 #------------------------elasticsearch测试----------------------
 docker run -di --name=test_es -e "ES_JAVA_OPTS=-Xms512m -Xmx512m" -e "discovery.type=single-node" -p 9200:9200 -p 9300:9300 elasticsearch:7.9.0
+
+docker exec -it my-es bash
+# 修改了环境变量 立即生效
+source /etc/profile

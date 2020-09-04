@@ -70,6 +70,7 @@ services:
     volumes:
       - /dockershare/lnmp-config/es/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       - /dockershare/data/storage/es:/usr/share/elasticsearch/data
+      - /dockershare/lnmp-config/es-plugins:/usr/share/elasticsearch/plugins
     ports:
       - 9200:9200
       - 9300:9300
