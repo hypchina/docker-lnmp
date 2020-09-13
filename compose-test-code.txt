@@ -113,3 +113,15 @@ docker exec -it my-es bash
 source /etc/profile
 # 进入vbox安装目录 执行对硬盘的扩容
  .\VBoxManage.exe modifymedium "D:\VirtualBox VMs\ubuntu\ubuntu-disk001.vdi" --resize 20000
+ 根据uuid扩容
+ 查看硬盘uuid
+ .\VBoxManage.exe list hdds
+ 根据uuid扩容
+ .\VBoxManage.exe modifyhd 815d0724-dfae-44c6-8e1b-022d979eb6b5 --resize 20480
+
+ https://registry.docker-cn.com
+重启docker服务
+ sudo kill -SIGHUP $(pidof dockerd)
+ 或者 推荐下面这个
+ systemctl start docker.service
+ systemctl restart docker.service
